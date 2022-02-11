@@ -194,7 +194,8 @@ if __name__ == "__main__":
     executor = ThreadPoolExecutor(max_workers=len(models))
     """
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-
+    if torch.cuda.is_available():
+        print('GPU')
     model = torch.hub.load('ultralytics/yolov5', 'yolov5l', pretrained = True)
     model.eval().to(device)
     with torch.no_grad():
