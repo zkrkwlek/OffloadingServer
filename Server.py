@@ -26,8 +26,9 @@ def printProcessingTime():
 def saveProcessingTime():
     Data["Time"].update()
     pickle.dump(Data["Time"], open('./evaluation/processing_time.bin', "wb"))
-keyboard.add_hotkey("ctrl+p",lambda: printProcessingTime())
-keyboard.add_hotkey("ctrl+s",lambda: saveProcessingTime())
+
+#keyboard.add_hotkey("ctrl+p",lambda: printProcessingTime())
+#keyboard.add_hotkey("ctrl+s",lambda: saveProcessingTime())
 
 app = Flask(__name__)
 
