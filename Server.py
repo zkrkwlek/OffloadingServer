@@ -52,6 +52,7 @@ def Display(res):
 
 
 def processingthread(message):
+    print("Object Detection Start");
     t1 = time.time()
     global nConnect
     data = ujson.loads(message.decode())
@@ -121,16 +122,18 @@ def processingthread(message):
     mid = 1
     print("Object Detection = %s : %d, %f, %f" % (id, mid, t2 - t1, tb-ta))
     Data["Time"].add(t2 - t1, len(fdata))
-    print(id,t1,t2)
+    #print(id,t1,t2)
 
 bufferSize = 1024
 def udpthread():
 
+    executor = ThreadPoolExecutor(4)
+
     while True:
         bytesAddressPair = ECHO_SOCKET.recvfrom(bufferSize)
         message = bytesAddressPair[0]
-        with ThreadPoolExecutor() as executor:
-            executor.submit(processingthread, message)
+        #with ThreadPoolExecutor() as executor:
+        executor.submit(processingthread, message)
 
 if __name__ == "__main__":
 
@@ -197,7 +200,7 @@ if __name__ == "__main__":
         rgb = np.random.randint(255, size=(640, 480, 3), dtype=np.uint8)
         model(rgb)
     Data = {}
-0.
+
     try:
         path = os.path.dirname(os.path.realpath(__file__))
         f = open(path + '/evaluation/processing_time.bin', 'rb')
